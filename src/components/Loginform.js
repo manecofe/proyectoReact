@@ -27,9 +27,8 @@ function Loginform({Login, error}) {
 
                     <input className="forms" type="submit" value="Submit"></input>
                 </form> 
-
+            </div>
         </div>
-      </div>
     </div>
     )
 }
