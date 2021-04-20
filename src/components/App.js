@@ -6,33 +6,57 @@ import '../styles/App.css';
 
 
 function App() {
-  const adminUsers={
-    email: "feelmaneco@gmail.com",
-    password:"123"
-  }
-const [user,setUser]=useState({email:""});
+const users = require('../jsons/accounts.json');
+const [user,setUser]=useState({email:"",name:""});
 const [error,setError] = useState("");
 
 const Login = details =>{
-  console.log(details);
-  if(details.email == adminUsers.email && details.password == adminUsers.password){
-
-    console.log("mi negro, logueaste");
-    setUser({
-      email: details.email
-    });
-
-  }else{
-    console.log("Nelson Mandela");
-  }
+  console.log(exist(details));
+  exist(details);
 }
 
 const logout = () =>{
   console.log("bye bye");
   setUser({
-    email:""
+    email:"",
+    name:""
   });
 }
+
+
+const exist = function (details){
+  var manito= false
+  var nombre=""
+  for(var i=0;i<ObjectLength(users);i++){
+    if(users[i].column2==details.email && users[i].column1==details.password){
+      manito=true;
+      nombre=users[i].column0;
+      setUser({
+        email: details.email,
+        name:nombre
+      });
+    }
+  }
+  return manito;
+}
+
+
+const ObjectLength= function ( object ) {
+  var length = 0;
+  for( var key in object ) {
+      if( object.hasOwnProperty(key) ) {
+          ++length;
+      }
+  }
+  return length;
+};
+
+
+
+
+
+
+
   return (
     <>
 
@@ -41,7 +65,7 @@ const logout = () =>{
         <div class="outer">
           <div class="middle">
             <div class="inner">
-              <h2> Hello, <span>{user.email}</span></h2>
+              <h2> Hello, <span>{user.name}</span></h2>
               <button onClick={logout}>Log Out</button>
             </div>
           </div>
@@ -50,7 +74,7 @@ const logout = () =>{
       <Loginform Login={Login} error={error} />
       )}
 
-      
+
     </>
   );
 }
