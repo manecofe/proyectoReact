@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Loginform from './Loginform';
 import Singupform from './Singupform';
-
+import {BrowserRouter, Route} from 'react-router-dom';
 import '../styles/App.css';
 import { helpHttp } from '../helpers/helpHttp';
 
@@ -9,39 +9,10 @@ import { helpHttp } from '../helpers/helpHttp';
 
 function App() {
 
-let url="http://localhost:5000/users";
 let api =helpHttp();  
 const users = require('../jsons/accounts2.json');
 const [user,setUser]=useState({email:"",name:"",state:""});
 const [error,setError] = useState("");
-
-
-
-const Login = details =>{
-  console.log(exist(details));
-  exist(details);
-}
-const toregister= () => {
-  console.log("al registro")
-  setUser({
-    email:"register"
-  });
-  setError("")
-}
-const tologin= () => {
-  console.log("al login")
-  setUser({
-    email:""
-  });
-  setError("")
-}
-const logout = () =>{
-  console.log("bye bye");
-  setUser({
-    email:"",
-    name:""
-  });
-}
 
 
 const exist = function (details){
@@ -65,10 +36,6 @@ const exist = function (details){
   return manito;
 }
 
-const testfuntion= function(){
-  console.log(api.get(url))
-}
-
 const ObjectLength= function ( object ) {
   var length = 0;
   for( var key in object ) {
@@ -79,48 +46,15 @@ const ObjectLength= function ( object ) {
   return length;
 };
 
-const create= function(){
-
-  tologin();
-}
-
-
-
-
 
   return (
     <>
 
-
-      {
-      (user.email =="register") 
-      ?(<Singupform create={create} error={error} setError={setError} tologin={tologin}/>)
-      :((user.email !="") ? (
-          <div class="outer">
-            <div class="middle">
-              <div class="inner">
-                <h2> Hello, <span>{user.name}</span></h2>
-                <button onClick={logout}>Log Out</button>
-                <button onClick={testfuntion}>test</button>
-              </div>
-            </div>
-          </div>
-        ):(
-          (user.email =="") ? (
-            <Loginform Login={Login} error={error} toregister={toregister}/>
-          ):(
-            <></>
-          )
-        )
-      )
-
-
+      <BrowserRouter>
+        <Route exact path='/logIn' component={Loginform}/>
+        <Route exact path='/SingUp' component={Singupform}/>
+      </BrowserRouter>
       
-      
-      
-      
-      }
-
 
     </>
   );

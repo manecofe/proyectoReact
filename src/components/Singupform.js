@@ -1,35 +1,17 @@
 import React,{useState} from 'react'
 import '../styles/App.css';
-import avocado from '../components/avocado.png';
-import bonk from '../components/error.jpg';
+import {Link, link} from 'react-router-dom';
 function Singupform({create, error, setError,tologin}) {
 
     const [details, setDetails] = useState({email: "", password: "",confirm:""})
-
-    const subminHandler = e =>{
-        e.preventDefault();
-
-        (details.password==details.confirm)
-        ?(create(details))
-        :(setError("Contraseñas no coinciden"));
-    }
-    function handlelogin(e) {
-        e.preventDefault();
-        tologin();
-      }
 
     return (
     <div class="outer">
         <div class="middle">
             <div class="inner">
                 <h1 id="start">H2OKT</h1>
-                    <div>
-                        {(error !="") 
-                        ?(<div><img src={bonk} width="400" height="288"/><p>Usuario Malo!, no hagas eso</p></div>)
-                        :(<img className="App-logo" src={avocado} width="248" height="288"/>)}
-                        
-                    </div>
-                <form onSubmit={subminHandler}>
+
+                <form>
                     <label className="forms">E-mail :</label>
                     <input className="forms formsmail" type="email" id="email" name="email" 
                     onChange={e => setDetails({...details, email: e.target.value})} value={details.email}></input>
@@ -44,8 +26,12 @@ function Singupform({create, error, setError,tologin}) {
                     <p></p>
                     <input className="loginbutton button" type="submit" value="Log in"></input>
                 </form>
+
+                <br></br>
                 <p>already have an account?</p>
-                <button className="loginbutton button" onClick={handlelogin} >Log In!</button>
+                <Link to='/logIn'>
+                    <button className="loginbutton button">Log In!</button>
+                </Link>
             </div>
         </div>
     </div>
